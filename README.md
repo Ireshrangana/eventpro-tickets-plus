@@ -2,9 +2,9 @@
   <img src="./assets/images/github-banner.svg" alt="EventPro Tickets Plus for WooCommerce banner" width="100%" />
 </p>
 
-<h1 align="center">EventPro Tickets Plus for WooCommerce</h1>
+<h1 align="left">EventPro Tickets Plus for WooCommerce</h1>
 
-<p align="center">
+<p align="left">
   Premium WooCommerce-powered event management, ticketing, attendee operations, PDF tickets, and staff check-in for WordPress.
 </p>
 
