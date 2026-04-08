@@ -36,36 +36,40 @@
   <text x="447" y="119" text-anchor="middle" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">WordPress</text>
 
   <text x="96" y="200" fill="#6B7A90" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="0.12em">PREMIUM EVENT COMMERCE PLATFORM</text>
-  <text x="96" y="278" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="62" font-weight="800">EventPro Tickets Plus</text>
-  <text x="96" y="344" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="46" font-weight="700">for WooCommerce</text>
-  <text x="96" y="398" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="500">Sell tickets through WooCommerce, manage attendees, deliver PDF tickets,</text>
-  <text x="96" y="432" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="500">and launch polished event pages with a premium WordPress workflow.</text>
+  <text x="96" y="266" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="52" font-weight="800">EventPro Tickets</text>
+  <text x="96" y="320" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="52" font-weight="800">Plus</text>
+  <text x="96" y="366" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="32" font-weight="700">for WooCommerce</text>
+  <text x="96" y="410" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500">Sell tickets through WooCommerce, manage attendees,</text>
+  <text x="96" y="438" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500">deliver PDF tickets, and launch polished event pages.</text>
+  <text x="96" y="466" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500">Built for a premium WordPress event workflow.</text>
 
-  <rect x="96" y="482" width="250" height="56" rx="28" fill="url(#accent)"/>
-  <text x="221" y="517" text-anchor="middle" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">Archive + Single Templates</text>
+  <rect x="96" y="510" width="230" height="52" rx="26" fill="url(#accent)"/>
+  <text x="211" y="542" text-anchor="middle" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700">Archive + Single</text>
+  <text x="211" y="562" text-anchor="middle" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700">Templates</text>
 
-  <rect x="362" y="482" width="230" height="56" rx="28" fill="#FFFFFF"/>
-  <rect x="362.5" y="482.5" width="229" height="55" rx="27.5" stroke="#D9E3F0"/>
-  <text x="477" y="517" text-anchor="middle" fill="#243246" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">PDF + QR Ticket Delivery</text>
+  <rect x="340" y="510" width="238" height="52" rx="26" fill="#FFFFFF"/>
+  <rect x="340.5" y="510.5" width="237" height="51" rx="25.5" stroke="#D9E3F0"/>
+  <text x="459" y="542" text-anchor="middle" fill="#243246" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700">PDF + QR Ticket</text>
+  <text x="459" y="562" text-anchor="middle" fill="#243246" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700">Delivery</text>
 
   <g>
-    <rect x="806" y="146" width="340" height="354" rx="28" fill="#FFFFFF" opacity="0.96"/>
-    <rect x="806.5" y="146.5" width="339" height="353" rx="27.5" stroke="#DDE6F1"/>
+    <rect x="844" y="158" width="280" height="300" rx="28" fill="#FFFFFF" opacity="0.96"/>
+    <rect x="844.5" y="158.5" width="279" height="299" rx="27.5" stroke="#DDE6F1"/>
 
-    <text x="838" y="194" fill="#6B7A90" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="0.12em">TICKETING</text>
-    <text x="838" y="248" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="44" font-weight="800">Reserve your</text>
-    <text x="838" y="292" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="44" font-weight="800">spot</text>
-    <text x="838" y="334" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500">WooCommerce checkout, payment-state-aware</text>
-    <text x="838" y="362" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500">ticket issuing, PDF downloads, and check-in.</text>
+    <text x="872" y="202" fill="#6B7A90" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="0.12em">TICKETING</text>
+    <text x="872" y="244" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="35" font-weight="800">Reserve your</text>
+    <text x="872" y="282" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="35" font-weight="800">spot</text>
+    <text x="872" y="318" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500">WooCommerce checkout, payment-state-aware</text>
+    <text x="872" y="341" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500">ticket issuing, PDF downloads, and check-in.</text>
 
-    <rect x="838" y="392" width="132" height="72" rx="20" fill="#F7FAFF"/>
-    <rect x="838.5" y="392.5" width="131" height="71" rx="19.5" stroke="#E2EAF4"/>
-    <text x="856" y="423" fill="#243246" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Secure</text>
-    <text x="856" y="447" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500">WooCommerce</text>
+    <rect x="872" y="374" width="108" height="58" rx="18" fill="#F7FAFF"/>
+    <rect x="872.5" y="374.5" width="107" height="57" rx="17.5" stroke="#E2EAF4"/>
+    <text x="888" y="399" fill="#243246" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">Secure</text>
+    <text x="888" y="419" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500">WooCommerce</text>
 
-    <rect x="986" y="392" width="128" height="72" rx="20" fill="#F5FFFB"/>
-    <rect x="986.5" y="392.5" width="127" height="71" rx="19.5" stroke="#DDEFEA"/>
-    <text x="1004" y="423" fill="#243246" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Attendees</text>
-    <text x="1004" y="447" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500">Check-in ready</text>
+    <rect x="992" y="374" width="108" height="58" rx="18" fill="#F5FFFB"/>
+    <rect x="992.5" y="374.5" width="107" height="57" rx="17.5" stroke="#DDEFEA"/>
+    <text x="1008" y="399" fill="#243246" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">Attendees</text>
+    <text x="1008" y="419" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500">Check-in ready</text>
   </g>
 </svg>
