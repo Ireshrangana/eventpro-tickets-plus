@@ -8,7 +8,7 @@
   Premium WooCommerce-powered event management, ticketing, attendee operations, PDF tickets, and staff check-in for WordPress.
 </p>
 
-<p align="center">
+<p align="left">
   <strong>WooCommerce-native event commerce</strong> · <strong>Premium frontend pages</strong> · <strong>Attendees, PDF tickets, and check-in</strong>
 </p>
 
