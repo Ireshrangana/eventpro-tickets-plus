@@ -3,7 +3,7 @@
  * Plugin Name: EventPro Tickets Plus for WooCommerce
  * Plugin URI:  https://www.synbus.ph/
  * Description: Premium WooCommerce-powered event management, ticketing, attendee, and check-in toolkit for WordPress.
- * Version:     1.0.0
+ * Version:     1.1.4
  * Author:      Iresh Rangana
  * Author URI:  https://www.synbus.ph/
  * Text Domain: eventpro-tickets-plus
@@ -19,7 +19,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'EPTP_VERSION' ) ) {
-	define( 'EPTP_VERSION', '1.0.0' );
+	define( 'EPTP_VERSION', '1.1.4' );
 }
 
 if ( ! defined( 'EPTP_PLUGIN_FILE' ) ) {

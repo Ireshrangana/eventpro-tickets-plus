@@ -78,6 +78,7 @@ class Admin {
 		add_action( 'admin_post_eptp_create_demo_content', array( $this, 'create_demo_content' ) );
 		add_action( 'admin_post_eptp_delete_demo_content', array( $this, 'delete_demo_content' ) );
 		add_action( 'admin_post_eptp_create_demo_pages', array( $this, 'create_demo_pages' ) );
+		add_action( 'admin_post_eptp_delete_demo_pages', array( $this, 'delete_demo_pages' ) );
 	}
 
 	/**
@@ -420,6 +421,10 @@ class Admin {
 			admin_url( 'admin-post.php?action=eptp_create_demo_pages' ),
 			'eptp_create_demo_pages'
 		);
+		$demo_pages_delete_url = wp_nonce_url(
+			admin_url( 'admin-post.php?action=eptp_delete_demo_pages' ),
+			'eptp_delete_demo_pages'
+		);
 
 		include EPTP_PLUGIN_DIR . 'admin/views/dashboard.php';
 	}
@@ -449,11 +454,15 @@ class Admin {
 		}
 
 		if ( 'pages-created' === $status ) {
-			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Frontend pages created successfully. Review the Events, Event Categories, and category-specific pages from Pages > All Pages.', 'eventpro-tickets-plus' ) . '</p></div>';
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Frontend pages created successfully. They now use editable block layouts, and rerunning the generator will preserve client changes whenever possible.', 'eventpro-tickets-plus' ) . '</p></div>';
 		}
 
 		if ( 'pages-failed' === $status ) {
 			echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__( 'Frontend pages could not be created. Please try again.', 'eventpro-tickets-plus' ) . '</p></div>';
+		}
+
+		if ( 'pages-removed' === $status ) {
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Premade frontend pages removed successfully. You can now create a fresh set from the dashboard.', 'eventpro-tickets-plus' ) . '</p></div>';
 		}
 	}
 
@@ -1140,66 +1149,405 @@ class Admin {
 
 		check_admin_referer( 'eptp_create_demo_pages' );
 
-		$pages = array(
-			array(
-				'demo_key'     => 'demo-page-events',
-				'post_title'   => __( 'Events', 'eventpro-tickets-plus' ),
-				'post_name'    => 'events',
-				'post_content' => '[eventpro_events posts_per_page="9" title="Featured Events" description="Discover premium conferences, workshops, and community experiences with a clean responsive event grid."]',
-			),
-			array(
-				'demo_key'     => 'demo-page-event-categories',
-				'post_title'   => __( 'Event Categories', 'eventpro-tickets-plus' ),
-				'post_name'    => 'event-categories',
-				'post_content' => '[eventpro_event_categories title="Explore Event Categories" description="Browse modern event collections and open category-specific pages with one clean landing experience."]',
-			),
-			array(
-				'demo_key'     => 'demo-page-business-events',
-				'post_title'   => __( 'Business Events', 'eventpro-tickets-plus' ),
-				'post_name'    => 'business-events',
-				'post_content' => '[eventpro_events category="business-events" posts_per_page="6" title="Business Events" description="Browse keynote-led conference experiences, networking sessions, and premium ticketed events for business audiences."]',
-			),
-			array(
-				'demo_key'     => 'demo-page-workshops',
-				'post_title'   => __( 'Workshops', 'eventpro-tickets-plus' ),
-				'post_name'    => 'workshops',
-				'post_content' => '[eventpro_events category="workshops" posts_per_page="6" title="Workshops" description="Explore focused workshop experiences with smaller-group formats, practical sessions, and modern registration journeys."]',
-			),
-			array(
-				'demo_key'     => 'demo-page-community-events',
-				'post_title'   => __( 'Community Events', 'eventpro-tickets-plus' ),
-				'post_name'    => 'community-events',
-				'post_content' => '[eventpro_events category="community-events" posts_per_page="6" title="Community Events" description="Review lighter social and community-led event pages built for networking, hosted evenings, and easy ticket access."]',
-			),
-		);
+		$pages = $this->get_demo_page_blueprints();
 
 		foreach ( $pages as $page ) {
-			$page_id = $this->upsert_demo_post(
-				'page',
-				'_eptp_demo_key',
-				$page['demo_key'],
-				array(
-					'post_title'   => $page['post_title'],
-					'post_content' => $page['post_content'],
-					'post_excerpt' => '',
-				)
-			);
+			$page_id = $this->upsert_demo_page( $page );
 
 			if ( ! $page_id ) {
 				wp_safe_redirect( admin_url( 'admin.php?page=eptp-dashboard&eptp_notice=pages-failed' ) );
 				exit;
 			}
-
-			wp_update_post(
-				array(
-					'ID'        => $page_id,
-					'post_name' => sanitize_title( (string) $page['post_name'] ),
-				)
-			);
 		}
 
 		wp_safe_redirect( admin_url( 'admin.php?page=eptp-dashboard&eptp_notice=pages-created' ) );
 		exit;
+	}
+
+	/**
+	 * Delete generated premade frontend pages only.
+	 *
+	 * @return void
+	 */
+	public function delete_demo_pages() : void {
+		if ( ! current_user_can( 'manage_eventpro_tickets_plus' ) ) {
+			wp_die( esc_html__( 'You are not allowed to remove frontend pages.', 'eventpro-tickets-plus' ) );
+		}
+
+		check_admin_referer( 'eptp_delete_demo_pages' );
+
+		$page_keys = array_map(
+			static fn( array $page ) : string => (string) $page['demo_key'],
+			$this->get_demo_page_blueprints()
+		);
+
+		$this->delete_demo_posts_by_key( '_eptp_demo_key', $page_keys, array( 'page' ) );
+
+		wp_safe_redirect( admin_url( 'admin.php?page=eptp-dashboard&eptp_notice=pages-removed' ) );
+		exit;
+	}
+
+	/**
+	 * Get editable demo page blueprints.
+	 *
+	 * @return array<int,array<string,mixed>>
+	 */
+	protected function get_demo_page_blueprints() : array {
+		return array(
+			array(
+				'demo_key'         => 'demo-page-events',
+				'post_title'       => __( 'Events', 'eventpro-tickets-plus' ),
+				'post_name'        => 'events',
+				'post_excerpt'     => __( 'Discover premium conferences, workshops, and community experiences with a clean responsive event grid.', 'eventpro-tickets-plus' ),
+				'eyebrow'          => __( 'Premade Event Page', 'eventpro-tickets-plus' ),
+				'intro_title'      => __( 'Events', 'eventpro-tickets-plus' ),
+				'intro_description'=> __( 'Use this editable landing page as your main event hub. Change the intro copy, add media blocks, move sections, or keep the generated event grid below.', 'eventpro-tickets-plus' ),
+				'actions'          => array(
+					array(
+						'label' => __( 'View categories', 'eventpro-tickets-plus' ),
+						'url'   => home_url( '/event-categories/' ),
+					),
+					array(
+						'label' => __( 'Edit this page layout', 'eventpro-tickets-plus' ),
+						'url'   => admin_url( 'edit.php?post_type=page' ),
+					),
+				),
+				'cards'            => array(
+					array(
+						'title' => __( 'Editable hero content', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Swap the heading, supporting copy, buttons, or add images and testimonials using normal Gutenberg blocks.', 'eventpro-tickets-plus' ),
+					),
+					array(
+						'title' => __( 'Shortcode-powered listings', 'eventpro-tickets-plus' ),
+						'text'  => __( 'The event grid stays dynamic, so newly published events appear automatically while the surrounding content remains editable.', 'eventpro-tickets-plus' ),
+					),
+					array(
+						'title' => __( 'Client-friendly starting point', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Use this as a starter page, then customize spacing, text, images, and sections without touching plugin templates.', 'eventpro-tickets-plus' ),
+					),
+				),
+				'shortcode'        => '[eventpro_events posts_per_page="9"]',
+				'legacy_content'   => '[eventpro_events posts_per_page="9" title="Featured Events" description="Discover premium conferences, workshops, and community experiences with a clean responsive event grid."]',
+			),
+			array(
+				'demo_key'         => 'demo-page-event-categories',
+				'post_title'       => __( 'Event Categories', 'eventpro-tickets-plus' ),
+				'post_name'        => 'event-categories',
+				'post_excerpt'     => __( 'Browse modern event collections and open category-specific pages with one clean landing experience.', 'eventpro-tickets-plus' ),
+				'eyebrow'          => __( 'Premade Event Page', 'eventpro-tickets-plus' ),
+				'intro_title'      => __( 'Event Categories', 'eventpro-tickets-plus' ),
+				'intro_description'=> __( 'Turn this page into a curated browse experience. Replace the intro, add explanatory content, and keep the dynamic category cards underneath.', 'eventpro-tickets-plus' ),
+				'actions'          => array(
+					array(
+						'label' => __( 'Browse all events', 'eventpro-tickets-plus' ),
+						'url'   => home_url( '/events/' ),
+					),
+					array(
+						'label' => __( 'View business events', 'eventpro-tickets-plus' ),
+						'url'   => home_url( '/business-events/' ),
+					),
+				),
+				'cards'            => array(
+					array(
+						'title' => __( 'Category-led discovery', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Guide visitors into curated event streams like business events, workshops, or community gatherings.', 'eventpro-tickets-plus' ),
+					),
+					array(
+						'title' => __( 'Reusable marketing space', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Add sponsor messaging, brand positioning, or audience guidance above the dynamic category cards.', 'eventpro-tickets-plus' ),
+					),
+					array(
+						'title' => __( 'Keeps taxonomy pages linked', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Each category card still links to the plugin’s category archive, so clients can keep both landing pages and archive routes.', 'eventpro-tickets-plus' ),
+					),
+				),
+				'shortcode'        => '[eventpro_event_categories show_header="no"]',
+				'legacy_content'   => '[eventpro_event_categories title="Explore Event Categories" description="Browse modern event collections and open category-specific pages with one clean landing experience."]',
+			),
+			array(
+				'demo_key'         => 'demo-page-business-events',
+				'post_title'       => __( 'Business Events', 'eventpro-tickets-plus' ),
+				'post_name'        => 'business-events',
+				'post_excerpt'     => __( 'Browse keynote-led conference experiences, networking sessions, and premium ticketed events for business audiences.', 'eventpro-tickets-plus' ),
+				'eyebrow'          => __( 'Premade Event Page', 'eventpro-tickets-plus' ),
+				'intro_title'      => __( 'Business Events', 'eventpro-tickets-plus' ),
+				'intro_description'=> __( 'This page is ready for a polished conference or summit collection. Edit the intro blocks freely while the category-filtered event feed stays dynamic below.', 'eventpro-tickets-plus' ),
+				'actions'          => array(
+					array(
+						'label' => __( 'Browse all events', 'eventpro-tickets-plus' ),
+						'url'   => home_url( '/events/' ),
+					),
+					array(
+						'label' => __( 'Open category archive', 'eventpro-tickets-plus' ),
+						'url'   => home_url( '/event-category/business-events/' ),
+					),
+				),
+				'cards'            => array(
+					array(
+						'title' => __( 'Conference-ready intro area', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Use the top section for sponsor callouts, pricing context, or editorial copy tailored to business audiences.', 'eventpro-tickets-plus' ),
+					),
+					array(
+						'title' => __( 'Still easy to maintain', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Editors can update this page from Pages > All Pages without opening plugin files or changing template code.', 'eventpro-tickets-plus' ),
+					),
+					array(
+						'title' => __( 'Dynamic category filtering', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Only events assigned to the Business Events category will render here, keeping the page tidy as the catalog grows.', 'eventpro-tickets-plus' ),
+					),
+				),
+				'shortcode'        => '[eventpro_events category="business-events" posts_per_page="6"]',
+				'legacy_content'   => '[eventpro_events category="business-events" posts_per_page="6" title="Business Events" description="Browse keynote-led conference experiences, networking sessions, and premium ticketed events for business audiences."]',
+			),
+			array(
+				'demo_key'         => 'demo-page-workshops',
+				'post_title'       => __( 'Workshops', 'eventpro-tickets-plus' ),
+				'post_name'        => 'workshops',
+				'post_excerpt'     => __( 'Explore focused workshop experiences with smaller-group formats, practical sessions, and modern registration journeys.', 'eventpro-tickets-plus' ),
+				'eyebrow'          => __( 'Premade Event Page', 'eventpro-tickets-plus' ),
+				'intro_title'      => __( 'Workshops', 'eventpro-tickets-plus' ),
+				'intro_description'=> __( 'Use this page for workshop-specific positioning, learning outcomes, speaker notes, or CTA messaging while the event list updates automatically.', 'eventpro-tickets-plus' ),
+				'actions'          => array(
+					array(
+						'label' => __( 'Browse all events', 'eventpro-tickets-plus' ),
+						'url'   => home_url( '/events/' ),
+					),
+					array(
+						'label' => __( 'View categories', 'eventpro-tickets-plus' ),
+						'url'   => home_url( '/event-categories/' ),
+					),
+				),
+				'cards'            => array(
+					array(
+						'title' => __( 'Built for practical sessions', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Highlight outcomes, facilitator notes, capacity details, or equipment requirements above the filtered event list.', 'eventpro-tickets-plus' ),
+					),
+					array(
+						'title' => __( 'Simple to personalize', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Replace these starter cards with testimonials, images, FAQs, or branded marketing sections in the block editor.', 'eventpro-tickets-plus' ),
+					),
+					array(
+						'title' => __( 'Category-specific feed', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Only workshop-tagged events are displayed here, giving you a reusable themed landing page with minimal upkeep.', 'eventpro-tickets-plus' ),
+					),
+				),
+				'shortcode'        => '[eventpro_events category="workshops" posts_per_page="6"]',
+				'legacy_content'   => '[eventpro_events category="workshops" posts_per_page="6" title="Workshops" description="Explore focused workshop experiences with smaller-group formats, practical sessions, and modern registration journeys."]',
+			),
+			array(
+				'demo_key'         => 'demo-page-community-events',
+				'post_title'       => __( 'Community Events', 'eventpro-tickets-plus' ),
+				'post_name'        => 'community-events',
+				'post_excerpt'     => __( 'Review lighter social and community-led event pages built for networking, hosted evenings, and easy ticket access.', 'eventpro-tickets-plus' ),
+				'eyebrow'          => __( 'Premade Event Page', 'eventpro-tickets-plus' ),
+				'intro_title'      => __( 'Community Events', 'eventpro-tickets-plus' ),
+				'intro_description'=> __( 'Shape this page into a softer community landing experience with your own headline, intro, media, and CTA blocks while the filtered event grid stays in sync.', 'eventpro-tickets-plus' ),
+				'actions'          => array(
+					array(
+						'label' => __( 'Browse all events', 'eventpro-tickets-plus' ),
+						'url'   => home_url( '/events/' ),
+					),
+					array(
+						'label' => __( 'Open category archive', 'eventpro-tickets-plus' ),
+						'url'   => home_url( '/event-category/community-events/' ),
+					),
+				),
+				'cards'            => array(
+					array(
+						'title' => __( 'Warm editorial opener', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Use this section for host notes, community values, or partnership messaging that feels more human than a default archive.', 'eventpro-tickets-plus' ),
+					),
+					array(
+						'title' => __( 'Block editor friendly', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Clients can move blocks around, insert images, or swap copy directly in the page editor without breaking the event feed.', 'eventpro-tickets-plus' ),
+					),
+					array(
+						'title' => __( 'Flexible starting point', 'eventpro-tickets-plus' ),
+						'text'  => __( 'Keep the generated structure, trim it down, or expand it into a richer landing page with sponsor and signup sections.', 'eventpro-tickets-plus' ),
+					),
+				),
+				'shortcode'        => '[eventpro_events category="community-events" posts_per_page="6"]',
+				'legacy_content'   => '[eventpro_events category="community-events" posts_per_page="6" title="Community Events" description="Review lighter social and community-led event pages built for networking, hosted evenings, and easy ticket access."]',
+			),
+		);
+	}
+
+	/**
+	 * Create or refresh a generated page without overwriting client edits.
+	 *
+	 * @param array<string,mixed> $page Page blueprint.
+	 * @return int
+	 */
+	protected function upsert_demo_page( array $page ) : int {
+		$existing = get_posts(
+			array(
+				'post_type'      => 'page',
+				'post_status'    => 'any',
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+				'meta_key'       => '_eptp_demo_key',
+				'meta_value'     => (string) $page['demo_key'],
+			)
+		);
+
+		$generated = array(
+			'post_title'   => (string) $page['post_title'],
+			'post_excerpt' => (string) ( $page['post_excerpt'] ?? '' ),
+			'post_content' => $this->build_editable_demo_page_content( $page ),
+		);
+
+		$snapshot_json = wp_json_encode( $generated );
+		$snapshot_json = false !== $snapshot_json ? $snapshot_json : '';
+
+		if ( ! empty( $existing ) ) {
+			$page_id          = (int) $existing[0];
+			$current_snapshot = array(
+				'post_title'   => get_the_title( $page_id ),
+				'post_excerpt' => (string) get_post_field( 'post_excerpt', $page_id ),
+				'post_content' => (string) get_post_field( 'post_content', $page_id ),
+			);
+			$stored_snapshot  = json_decode( (string) get_post_meta( $page_id, '_eptp_generated_page_snapshot', true ), true );
+			$legacy_content   = trim( (string) ( $page['legacy_content'] ?? '' ) );
+			$current_content  = trim( $current_snapshot['post_content'] );
+			$can_refresh      = is_array( $stored_snapshot ) && $stored_snapshot === $current_snapshot;
+
+			if ( ! $can_refresh && '' !== $legacy_content && $legacy_content === $current_content ) {
+				$can_refresh = true;
+			}
+
+			if ( $can_refresh ) {
+				$result = wp_update_post(
+					array(
+						'ID'           => $page_id,
+						'post_status'  => 'publish',
+						'post_title'   => $generated['post_title'],
+						'post_excerpt' => $generated['post_excerpt'],
+						'post_content' => $generated['post_content'],
+						'post_name'    => sanitize_title( (string) $page['post_name'] ),
+					),
+					true
+				);
+
+				if ( is_wp_error( $result ) ) {
+					return 0;
+				}
+			}
+		} else {
+			$page_id = wp_insert_post(
+				array(
+					'post_type'    => 'page',
+					'post_status'  => 'publish',
+					'post_title'   => $generated['post_title'],
+					'post_excerpt' => $generated['post_excerpt'],
+					'post_content' => $generated['post_content'],
+					'post_name'    => sanitize_title( (string) $page['post_name'] ),
+				),
+				true
+			);
+
+			if ( is_wp_error( $page_id ) || ! $page_id ) {
+				return 0;
+			}
+		}
+
+		update_post_meta( $page_id, '_eptp_demo_key', (string) $page['demo_key'] );
+		update_post_meta( $page_id, '_eptp_generated_page_snapshot', $snapshot_json );
+		update_post_meta( $page_id, '_eptp_premade_page', 'yes' );
+
+		return (int) $page_id;
+	}
+
+	/**
+	 * Build a block-based premade page layout that clients can edit visually.
+	 *
+	 * @param array<string,mixed> $page Page blueprint.
+	 * @return string
+	 */
+	protected function build_editable_demo_page_content( array $page ) : string {
+		$eyebrow           = esc_html( (string) ( $page['eyebrow'] ?? __( 'Premade Event Page', 'eventpro-tickets-plus' ) ) );
+		$intro_title       = esc_html( (string) ( $page['intro_title'] ?? $page['post_title'] ?? '' ) );
+		$intro_description = esc_html( (string) ( $page['intro_description'] ?? '' ) );
+		$shortcode         = trim( (string) ( $page['shortcode'] ?? '' ) );
+		$actions           = is_array( $page['actions'] ?? null ) ? $page['actions'] : array();
+		$cards             = is_array( $page['cards'] ?? null ) ? $page['cards'] : array();
+
+		$content = array(
+			'<!-- wp:group {"align":"wide","className":"eptp-premade-page","layout":{"type":"default"}} -->',
+			'<div class="wp-block-group eptp-premade-page">',
+			'<!-- wp:group {"className":"eptp-premade-page__hero","layout":{"type":"default"}} -->',
+			'<div class="wp-block-group eptp-premade-page__hero">',
+			'<!-- wp:paragraph {"className":"eptp-section-label"} -->',
+			'<p class="eptp-section-label">' . $eyebrow . '</p>',
+			'<!-- /wp:paragraph -->',
+			'<!-- wp:heading {"level":1,"className":"eptp-premade-page__title"} -->',
+			'<h1 class="eptp-premade-page__title">' . $intro_title . '</h1>',
+			'<!-- /wp:heading -->',
+			'<!-- wp:paragraph {"className":"eptp-premade-page__description"} -->',
+			'<p class="eptp-premade-page__description">' . $intro_description . '</p>',
+			'<!-- /wp:paragraph -->',
+		);
+
+		if ( ! empty( $actions ) ) {
+			$content[] = '<!-- wp:buttons {"className":"eptp-premade-page__actions"} -->';
+			$content[] = '<div class="wp-block-buttons eptp-premade-page__actions">';
+
+			foreach ( $actions as $index => $action ) {
+				if ( ! is_array( $action ) || empty( $action['label'] ) || empty( $action['url'] ) ) {
+					continue;
+				}
+
+				$button_class = 0 === $index ? ' is-style-fill' : ' is-style-outline';
+				$content[]    = '<!-- wp:button {"className":"' . esc_attr( trim( $button_class ) ) . '"} -->';
+				$content[]    = '<div class="wp-block-button ' . esc_attr( trim( $button_class ) ) . '"><a class="wp-block-button__link wp-element-button" href="' . esc_url( (string) $action['url'] ) . '">' . esc_html( (string) $action['label'] ) . '</a></div>';
+				$content[]    = '<!-- /wp:button -->';
+			}
+
+			$content[] = '</div>';
+			$content[] = '<!-- /wp:buttons -->';
+		}
+
+		$content[] = '</div>';
+		$content[] = '<!-- /wp:group -->';
+
+		if ( ! empty( $cards ) ) {
+			$content[] = '<!-- wp:columns {"className":"eptp-premade-page__highlights"} -->';
+			$content[] = '<div class="wp-block-columns eptp-premade-page__highlights">';
+
+			foreach ( $cards as $card ) {
+				if ( ! is_array( $card ) || empty( $card['title'] ) || empty( $card['text'] ) ) {
+					continue;
+				}
+
+				$content[] = '<!-- wp:column -->';
+				$content[] = '<div class="wp-block-column">';
+				$content[] = '<!-- wp:group {"className":"eptp-premade-page__card","layout":{"type":"default"}} -->';
+				$content[] = '<div class="wp-block-group eptp-premade-page__card">';
+				$content[] = '<!-- wp:heading {"level":3} -->';
+				$content[] = '<h3>' . esc_html( (string) $card['title'] ) . '</h3>';
+				$content[] = '<!-- /wp:heading -->';
+				$content[] = '<!-- wp:paragraph -->';
+				$content[] = '<p>' . esc_html( (string) $card['text'] ) . '</p>';
+				$content[] = '<!-- /wp:paragraph -->';
+				$content[] = '</div>';
+				$content[] = '<!-- /wp:group -->';
+				$content[] = '</div>';
+				$content[] = '<!-- /wp:column -->';
+			}
+
+			$content[] = '</div>';
+			$content[] = '<!-- /wp:columns -->';
+		}
+
+		if ( '' !== $shortcode ) {
+			$content[] = '<!-- wp:shortcode -->';
+			$content[] = $shortcode;
+			$content[] = '<!-- /wp:shortcode -->';
+		}
+
+		$content[] = '</div>';
+		$content[] = '<!-- /wp:group -->';
+
+		return implode( "\n", $content );
 	}
 
 	/**

@@ -132,6 +132,7 @@ class Shortcodes {
 				'description' => __( 'Explore curated event formats with clean category cards, clear counts, and direct access to category archive pages.', 'eventpro-tickets-plus' ),
 				'limit'       => 6,
 				'parent'      => 0,
+				'show_header' => 'yes',
 			),
 			$atts,
 			'eventpro_event_categories'
@@ -149,10 +150,12 @@ class Shortcodes {
 		ob_start();
 		?>
 		<section class="eptp-shortcode-shell eptp-category-landing">
-			<header class="eptp-shortcode-header eptp-category-landing__header">
-				<h2><?php echo esc_html( (string) $atts['title'] ); ?></h2>
-				<p><?php echo esc_html( (string) $atts['description'] ); ?></p>
-			</header>
+			<?php if ( 'no' !== eptp_sanitize_allowed_value( $atts['show_header'], array( 'yes', 'no' ), 'yes' ) ) : ?>
+				<header class="eptp-shortcode-header eptp-category-landing__header">
+					<h2><?php echo esc_html( (string) $atts['title'] ); ?></h2>
+					<p><?php echo esc_html( (string) $atts['description'] ); ?></p>
+				</header>
+			<?php endif; ?>
 
 			<?php if ( ! is_wp_error( $terms ) && $terms ) : ?>
 				<div class="eptp-category-grid">

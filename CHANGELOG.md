@@ -12,6 +12,31 @@ The format is intentionally simple so it works well for internal release prep, c
 - Marketplace artwork and product screenshots
 - Final live QA against a production-like WordPress stack
 
+## [1.1.4] - 2026-04-08
+
+### Added
+
+- Dashboard action to remove only generated premade frontend pages before recreating them
+
+### Changed
+
+- Improved premade page width handling for plugin-driven WordPress pages
+- Updated generated premade page markup defaults to work better with constrained block themes
+- Removed leftover legacy theme divider lines from plugin-driven event pages
+
+## [1.1.3] - 2026-04-08
+
+### Added
+
+- Editable block-based premade frontend pages for generated Events and category landing pages
+- Snapshot-based protection that preserves client-edited generated pages on reruns whenever the original generated layout is still intact
+- Optional shortcode header suppression for category landing pages created through the premade page generator
+
+### Changed
+
+- Refreshed frontend styling for premade page hero sections, CTA buttons, and highlight cards
+- Updated dashboard success messaging to reflect the new editable-page workflow
+
 ## [1.0.0] - 2026-04-08
 
 ### Added

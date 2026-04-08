@@ -11,6 +11,19 @@ body.eptp-has-shortcode-page {
 	background: var(--eptp-bg, #f6f8fc);
 }
 
+body.eptp-has-shortcode-page .entry-content,
+body.eptp-has-shortcode-page .wp-block-post-content {
+	max-width: none !important;
+}
+
+body.eptp-has-shortcode-page .wp-block-post-content > .eptp-premade-page,
+body.eptp-has-shortcode-page .entry-content > .eptp-premade-page {
+	width: min(100%, var(--eptp-shell-max-width, 1240px));
+	max-width: var(--eptp-shell-max-width, 1240px) !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
 body.eptp-has-shortcode-page .entry-title,
 body.eptp-has-shortcode-page .page-title,
 body.eptp-has-shortcode-page .wp-block-post-title,
@@ -23,6 +36,15 @@ body.eptp-has-shortcode-page .archive-title {
 .post-type-archive-eptp_event #header,
 .single-eptp_event #header,
 .tax-eptp_event_category #header {
+	display: none;
+}
+
+.post-type-archive-eptp_event #header + hr,
+.single-eptp_event #header + hr,
+.tax-eptp_event_category #header + hr,
+.post-type-archive-eptp_event .eptp-archive-shell + hr,
+.single-eptp_event .eptp-single-shell + hr,
+.tax-eptp_event_category .eptp-category-shell + hr {
 	display: none;
 }
 
@@ -271,6 +293,101 @@ body.eptp-has-shortcode-page .archive-title {
 	max-width: var(--eptp-text-measure, 760px);
 	color: var(--eptp-muted);
 	font-size: var(--eptp-font-md);
+	line-height: 1.7;
+}
+
+.eptp-premade-page {
+	display: grid;
+	gap: 24px;
+}
+
+.eptp-premade-page__hero {
+	padding: 32px;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #f8fbff 100%);
+	border: 1px solid rgba(225, 231, 242, 0.96);
+	border-radius: var(--eptp-radius);
+	box-shadow: 0 18px 42px rgba(15, 23, 42, 0.05);
+}
+
+.eptp-premade-page__title {
+	margin: 0 0 14px;
+	font-size: clamp(2rem, 4vw, 3.3rem);
+	line-height: 0.98;
+	letter-spacing: -0.045em;
+	color: var(--eptp-text-strong);
+	font-family: var(--eptp-font-heading, "Manrope", sans-serif);
+}
+
+.eptp-premade-page__description {
+	margin: 0;
+	max-width: var(--eptp-text-measure, 760px);
+	color: var(--eptp-muted);
+	font-size: var(--eptp-font-md);
+	line-height: 1.75;
+}
+
+.eptp-premade-page__actions {
+	margin-top: 20px;
+}
+
+.eptp-premade-page__actions .wp-block-button__link {
+	padding: 0.95rem 1.35rem;
+	border-radius: 999px;
+	font-weight: 700;
+	text-decoration: none;
+	box-shadow: none;
+}
+
+.eptp-premade-page__actions .is-style-fill .wp-block-button__link,
+.eptp-premade-page__actions .wp-block-button:not(.is-style-outline) .wp-block-button__link {
+	background: var(--eptp-primary);
+	color: #ffffff;
+}
+
+.eptp-premade-page__actions .is-style-outline .wp-block-button__link {
+	background: rgba(255, 255, 255, 0.88);
+	color: var(--eptp-text);
+	border: 1px solid rgba(211, 219, 232, 0.95);
+}
+
+.eptp-premade-page__highlights {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 24px;
+	margin: 0;
+}
+
+.eptp-premade-page__highlights > .wp-block-column {
+	display: flex;
+	min-width: 0;
+	flex: 1 1 0;
+}
+
+.eptp-premade-page .alignwide,
+.eptp-premade-page .alignfull {
+	max-width: none;
+}
+
+.eptp-premade-page__card {
+	width: 100%;
+	padding: 24px;
+	background: #ffffff;
+	border: 1px solid rgba(225, 231, 242, 0.96);
+	border-radius: var(--eptp-radius);
+	box-shadow: 0 18px 42px rgba(15, 23, 42, 0.05);
+}
+
+.eptp-premade-page__card h3 {
+	margin: 0 0 10px;
+	font-size: clamp(1.05rem, 2vw, 1.3rem);
+	line-height: 1.2;
+	color: var(--eptp-text-strong);
+	font-family: var(--eptp-font-heading, "Manrope", sans-serif);
+}
+
+.eptp-premade-page__card p {
+	margin: 0;
+	color: var(--eptp-muted);
 	line-height: 1.7;
 }
 
@@ -1265,6 +1382,10 @@ summary:focus {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
+	.eptp-premade-page__highlights {
+		grid-template-columns: 1fr;
+	}
+
 	.eptp-ui-band__grid,
 	.eptp-event-highlight-row,
 	.eptp-value-grid,
@@ -1415,6 +1536,15 @@ summary:focus {
 
 	.eptp-shortcode-header h2 {
 		font-size: clamp(1.5rem, 8vw, 2rem);
+	}
+
+	.eptp-premade-page__hero,
+	.eptp-premade-page__card {
+		padding: 22px;
+	}
+
+	.eptp-premade-page__title {
+		font-size: clamp(1.8rem, 8vw, 2.4rem);
 	}
 
 	.post-type-archive-eptp_event .site-title,

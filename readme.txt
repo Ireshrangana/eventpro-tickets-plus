@@ -4,7 +4,7 @@ Tags: events, tickets, woocommerce, attendees, qr-code
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 8.1
-Stable tag: 1.0.0
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,14 @@ Commercial release notes:
 
 == Upgrade Notice ==
 
+= 1.1.4 =
+
+Added dashboard cleanup for premade frontend pages, improved premade page layout handling, and removed leftover legacy theme divider lines from plugin-driven event screens.
+
+= 1.1.3 =
+
+Editable premade frontend pages now use Gutenberg-based layouts, generated page reruns preserve client edits where possible, and supporting frontend styling has been refreshed for easier testing and overrides.
+
 = 1.0.0 =
 
 Initial public commercial release for Synbus Inc.
@@ -83,6 +91,17 @@ Yes. The codebase includes hooks and filters for event payloads, settings defaul
 Developers can review the bundled notes in `DEVELOPER-NOTES.md` for architecture guidance, extension points, and release packaging expectations.
 
 == Changelog ==
+
+= 1.1.4 =
+* Added a dashboard action to remove only generated frontend pages and recreate them cleanly
+* Improved premade page width handling for plugin-driven WordPress pages
+* Removed visible legacy theme divider lines from event archive and related plugin pages
+
+= 1.1.3 =
+* Added editable block-based premade frontend pages for generated Events and category landing pages
+* Preserved client-edited generated pages on reruns whenever the original generated snapshot is unchanged
+* Added a category shortcode header toggle for cleaner page-level hero control
+* Refreshed frontend styles for the new premade page cards, hero, and action layout
 
 = 1.0.0 =
 * Added admin-controlled frontend design settings for plugin-managed pages
