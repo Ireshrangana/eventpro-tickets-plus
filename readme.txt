@@ -54,6 +54,31 @@ Commercial release notes:
 3. Activate EventPro Tickets Plus for WooCommerce.
 4. Create WooCommerce products for ticket tiers and assign them to events.
 
+== Shortcodes ==
+
+Available shortcodes:
+
+* `[eventpro_events]`
+* `[eventpro_event_categories]`
+* `[eventpro_ticket_dashboard]`
+
+Examples:
+
+* `[eventpro_events posts_per_page="6" title="Upcoming Events" description="Browse featured event experiences."]`
+* `[eventpro_events category="business-events" posts_per_page="6" title="Business Events"]`
+* `[eventpro_event_categories title="Explore Event Categories" description="Browse event collections." show_header="yes"]`
+* `[eventpro_ticket_dashboard]`
+
+Supported attributes:
+
+* `eventpro_events`: `posts_per_page`, `category`, `title`, `description`
+* `eventpro_event_categories`: `title`, `description`, `limit`, `parent`, `show_header`
+
+Premade page generator:
+
+* The dashboard can generate editable starter pages for Events, Event Categories, Business Events, Workshops, and Community Events
+* These are normal WordPress pages with editable Gutenberg content around dynamic shortcode-driven listings
+
 == Upgrade Notice ==
 
 = 1.1.4 =
@@ -85,6 +110,10 @@ Yes. Refunded, cancelled, and failed order states invalidate linked attendees.
 = Is this plugin extensible for custom projects? =
 
 Yes. The codebase includes hooks and filters for event payloads, settings defaults, attendee issuance, waitlist submissions, download URLs, outgoing ticket emails, font stack maps, and runtime design tokens.
+
+= Does it work with Elementor or Divi? =
+
+Yes, through shortcode-based integration today. You can place the plugin shortcodes inside Elementor shortcode widgets, Divi code/text modules, and standard WordPress pages. The plugin can be extended further with a future commercial upgrade that adds dedicated Elementor widgets and Divi modules for native builder controls.
 
 == Developer Notes ==
 

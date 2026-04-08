@@ -48,6 +48,44 @@ Commercially relevant defaults currently cover:
 
 These defaults can be filtered through `eventpro_tickets_plus_settings_defaults` before plugin initialization completes.
 
+## Shortcode Reference
+
+Current public shortcodes:
+
+- `[eventpro_events]`
+- `[eventpro_event_categories]`
+- `[eventpro_ticket_dashboard]`
+
+Useful examples:
+
+```text
+[eventpro_events posts_per_page="6" title="Upcoming Events"]
+[eventpro_events category="business-events" posts_per_page="6" title="Business Events"]
+[eventpro_event_categories title="Explore Event Categories" show_header="no"]
+[eventpro_ticket_dashboard]
+```
+
+Shortcode attributes:
+
+- `eventpro_events`: `posts_per_page`, `category`, `title`, `description`
+- `eventpro_event_categories`: `title`, `description`, `limit`, `parent`, `show_header`
+
+## Builder Compatibility Roadmap
+
+Current compatibility is shortcode-first:
+
+- Gutenberg pages are the primary recommended editing experience
+- Elementor works well through shortcode and HTML widgets
+- Divi works well through Code modules, Text modules, and normal WordPress pages that host plugin shortcodes
+
+Recommended commercial upgrade path:
+
+- add native Elementor widgets for event grids, category cards, ticket panels, and ticket dashboards
+- add native Divi modules for the same frontend surfaces
+- expose builder-friendly controls for card spacing, heading copy, CTA labels, and section visibility
+
+This keeps the core event and WooCommerce domain logic stable while improving builder-native authoring later.
+
 ## Commercial Release Checklist
 
 - Confirm WooCommerce activation and HPOS compatibility on the target version set
