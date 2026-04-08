@@ -1,0 +1,30 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="bg2" x1="98" y1="138" x2="1432" y2="796" gradientUnits="userSpaceOnUse">
+<stop stop-color="#0F172A"/>
+<stop offset="0.45" stop-color="#0D9488"/>
+<stop offset="1" stop-color="#38BDF8"/>
+</linearGradient>
+<linearGradient id="glass" x1="176" y1="160" x2="1410" y2="760" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0.24"/>
+<stop offset="1" stop-color="white" stop-opacity="0.05"/>
+</linearGradient>
+</defs>
+<rect width="1600" height="900" rx="40" fill="url(#bg2)"/>
+<path d="M0 690C220 580 454 550 676 608C858 654 996 758 1170 794C1298 820 1444 800 1600 730V900H0V690Z" fill="#F0FDFA" fill-opacity="0.1"/>
+<circle cx="1360" cy="220" r="188" fill="#99F6E4" fill-opacity="0.18"/>
+<rect x="126" y="112" width="1348" height="676" rx="34" fill="url(#glass)" stroke="white" stroke-opacity="0.12"/>
+<rect x="188" y="186" width="382" height="462" rx="30" fill="white" fill-opacity="0.1"/>
+<rect x="612" y="186" width="724" height="110" rx="22" fill="white" fill-opacity="0.1"/>
+<rect x="612" y="328" width="724" height="110" rx="22" fill="white" fill-opacity="0.1"/>
+<rect x="612" y="470" width="724" height="110" rx="22" fill="white" fill-opacity="0.1"/>
+<rect x="612" y="622" width="250" height="58" rx="29" fill="white"/>
+<rect x="886" y="622" width="250" height="58" rx="29" fill="white" fill-opacity="0.16"/>
+<text x="228" y="248" fill="white" fill-opacity="0.86" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="3">LAUNCH STRATEGY LAB</text>
+<text x="228" y="340" fill="white" font-family="Arial, sans-serif" font-size="50" font-weight="700">Launch Lab</text>
+<text x="228" y="404" fill="white" font-family="Arial, sans-serif" font-size="50" font-weight="700">Workshop Sessions</text>
+<text x="228" y="490" fill="white" fill-opacity="0.78" font-family="Arial, sans-serif" font-size="24" font-weight="500">A calmer, more intimate visual system for workshops, labs, and focused conversion offers.</text>
+<text x="648" y="252" fill="white" font-family="Arial, sans-serif" font-size="26" font-weight="700">Hands-on Product Labs</text>
+<text x="648" y="394" fill="white" font-family="Arial, sans-serif" font-size="26" font-weight="700">Offer Positioning Sprint</text>
+<text x="648" y="536" fill="white" font-family="Arial, sans-serif" font-size="26" font-weight="700">Low-friction Workshop Checkout</text>
+</svg>

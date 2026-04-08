@@ -1,0 +1,32 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="bg" x1="179" y1="104" x2="1392" y2="812" gradientUnits="userSpaceOnUse">
+<stop stop-color="#0B1324"/>
+<stop offset="0.48" stop-color="#1358DB"/>
+<stop offset="1" stop-color="#0D9488"/>
+</linearGradient>
+<linearGradient id="panel" x1="1100" y1="180" x2="1278" y2="708" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0.26"/>
+<stop offset="1" stop-color="white" stop-opacity="0.04"/>
+</linearGradient>
+</defs>
+<rect width="1600" height="900" rx="40" fill="url(#bg)"/>
+<circle cx="1260" cy="176" r="210" fill="#7DD3FC" fill-opacity="0.16"/>
+<circle cx="226" cy="756" r="290" fill="#34D399" fill-opacity="0.12"/>
+<rect x="82" y="86" width="1436" height="728" rx="32" stroke="white" stroke-opacity="0.12"/>
+<rect x="930" y="144" width="440" height="612" rx="32" fill="url(#panel)" stroke="white" stroke-opacity="0.12"/>
+<rect x="170" y="172" width="190" height="44" rx="22" fill="white" fill-opacity="0.14"/>
+<rect x="170" y="252" width="580" height="82" rx="18" fill="white" fill-opacity="0.12"/>
+<rect x="170" y="354" width="522" height="82" rx="18" fill="white" fill-opacity="0.12"/>
+<rect x="170" y="480" width="220" height="60" rx="30" fill="white"/>
+<rect x="416" y="480" width="220" height="60" rx="30" fill="white" fill-opacity="0.14"/>
+<rect x="994" y="210" width="312" height="120" rx="26" fill="white" fill-opacity="0.1"/>
+<rect x="994" y="364" width="312" height="120" rx="26" fill="white" fill-opacity="0.1"/>
+<rect x="994" y="518" width="312" height="120" rx="26" fill="white" fill-opacity="0.1"/>
+<text x="170" y="200" fill="white" fill-opacity="0.82" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="3">FUTURE COMMERCE</text>
+<text x="170" y="307" fill="white" font-family="Arial, sans-serif" font-size="56" font-weight="700">Commerce and Event Growth</text>
+<text x="170" y="409" fill="white" font-family="Arial, sans-serif" font-size="56" font-weight="700">Designed for Premium Conversion</text>
+<text x="1016" y="282" fill="white" font-family="Arial, sans-serif" font-size="26" font-weight="700">Hybrid Keynotes</text>
+<text x="1016" y="436" fill="white" font-family="Arial, sans-serif" font-size="26" font-weight="700">VIP Lounge Access</text>
+<text x="1016" y="590" fill="white" font-family="Arial, sans-serif" font-size="26" font-weight="700">WooCommerce Ticket Flow</text>
+</svg>

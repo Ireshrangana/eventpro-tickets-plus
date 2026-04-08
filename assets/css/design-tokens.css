@@ -1,0 +1,59 @@
+:root {
+	--eptp-bg: #f5f7fb;
+	--eptp-bg-deep: #eaf0fb;
+	--eptp-panel: #ffffff;
+	--eptp-panel-strong: #f8fbff;
+	--eptp-card: rgba(255, 255, 255, 0.92);
+	--eptp-card-strong: #ffffff;
+	--eptp-card-soft: #f8fbff;
+	--eptp-text: #142033;
+	--eptp-text-strong: #0b1324;
+	--eptp-muted: #64748b;
+	--eptp-primary: #1358db;
+	--eptp-primary-strong: #0f4dc4;
+	--eptp-accent: #0d9488;
+	--eptp-accent-soft: #ebfbf8;
+	--eptp-warning: #d97706;
+	--eptp-border: rgba(210, 218, 231, 0.9);
+	--eptp-shadow: 0 22px 48px rgba(15, 23, 42, 0.09);
+	--eptp-shadow-strong: 0 28px 60px rgba(15, 23, 42, 0.12);
+	--eptp-radius: 22px;
+	--eptp-radius-sm: 16px;
+	--eptp-space-1: 8px;
+	--eptp-space-2: 12px;
+	--eptp-space-3: 16px;
+	--eptp-space-4: 20px;
+	--eptp-space-5: 24px;
+	--eptp-space-6: 32px;
+	--eptp-space-7: 40px;
+	--eptp-space-8: 56px;
+	--eptp-font-xs: 0.75rem;
+	--eptp-font-sm: 0.875rem;
+	--eptp-font-md: 1rem;
+	--eptp-font-lg: 1.125rem;
+	--eptp-font-xl: 1.375rem;
+	--eptp-font-2xl: clamp(1.75rem, 3vw, 2.5rem);
+	--eptp-font-3xl: clamp(2.25rem, 5vw, 4.25rem);
+}
+
+body.eptp-theme-dark,
+[data-eptp-theme="dark"] {
+	--eptp-bg: #0b1220;
+	--eptp-bg-deep: #111a2f;
+	--eptp-panel: #111827;
+	--eptp-panel-strong: #172033;
+	--eptp-card: rgba(17, 24, 39, 0.92);
+	--eptp-card-strong: #172033;
+	--eptp-card-soft: #1c2940;
+	--eptp-text: #e5edf9;
+	--eptp-text-strong: #f8fbff;
+	--eptp-muted: #a9b7cc;
+	--eptp-primary: #6ea6ff;
+	--eptp-primary-strong: #8cb7ff;
+	--eptp-accent: #5ed8ce;
+	--eptp-accent-soft: rgba(94, 216, 206, 0.14);
+	--eptp-warning: #f59e0b;
+	--eptp-border: rgba(82, 97, 123, 0.9);
+	--eptp-shadow: 0 24px 56px rgba(2, 6, 23, 0.4);
+	--eptp-shadow-strong: 0 34px 72px rgba(2, 6, 23, 0.48);
+}
