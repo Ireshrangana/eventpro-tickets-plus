@@ -1,6 +1,20 @@
-# EventPro Tickets Plus for WooCommerce
+<p align="center">
+  <img src="./assets/images/github-banner.svg" alt="EventPro Tickets Plus for WooCommerce banner" width="100%" />
+</p>
 
-Premium WooCommerce-powered event management, ticketing, attendee operations, PDF tickets, and staff check-in for WordPress.
+<h1 align="center">EventPro Tickets Plus for WooCommerce</h1>
+
+<p align="center">
+  Premium WooCommerce-powered event management, ticketing, attendee operations, PDF tickets, and staff check-in for WordPress.
+</p>
+
+<p align="center">
+  <strong>WooCommerce-native event commerce</strong> · <strong>Premium frontend pages</strong> · <strong>Attendees, PDF tickets, and check-in</strong>
+</p>
+
+## Repository Description
+
+Premium WooCommerce-powered event management and ticketing plugin for WordPress with dynamic event pages, attendee tools, PDF tickets, QR-ready access, and staff check-in.
 
 ## Highlights
 

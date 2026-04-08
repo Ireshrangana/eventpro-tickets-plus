@@ -1,0 +1,71 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">EventPro Tickets Plus for WooCommerce</title>
+  <desc id="desc">Premium WooCommerce-powered event management and ticketing plugin banner for GitHub.</desc>
+  <defs>
+    <linearGradient id="bg" x1="120" y1="60" x2="1120" y2="580" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FBFF"/>
+      <stop offset="0.55" stop-color="#EEF4FF"/>
+      <stop offset="1" stop-color="#F4FFFC"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#1358DB"/>
+      <stop offset="1" stop-color="#0D9488"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="1280" height="640" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="36" flood-color="#12213A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="640" rx="36" fill="#F3F7FC"/>
+  <g filter="url(#shadow)">
+    <rect x="40" y="40" width="1200" height="560" rx="32" fill="url(#bg)"/>
+    <rect x="40.5" y="40.5" width="1199" height="559" rx="31.5" stroke="#DDE6F1"/>
+  </g>
+
+  <circle cx="1120" cy="140" r="110" fill="#D7E6FF" opacity="0.8"/>
+  <circle cx="1070" cy="220" r="160" fill="#EAF4FF" opacity="0.9"/>
+  <circle cx="1180" cy="250" r="120" fill="#DDF7F2" opacity="0.8"/>
+
+  <rect x="96" y="96" width="140" height="36" rx="18" fill="#E8F0FF"/>
+  <text x="166" y="119" text-anchor="middle" fill="#1358DB" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">WooCommerce</text>
+
+  <rect x="250" y="96" width="126" height="36" rx="18" fill="#E7F8F4"/>
+  <text x="313" y="119" text-anchor="middle" fill="#0D9488" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Ticketing</text>
+
+  <rect x="388" y="96" width="118" height="36" rx="18" fill="#F2F5FB"/>
+  <text x="447" y="119" text-anchor="middle" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">WordPress</text>
+
+  <text x="96" y="200" fill="#6B7A90" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="0.12em">PREMIUM EVENT COMMERCE PLATFORM</text>
+  <text x="96" y="278" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="62" font-weight="800">EventPro Tickets Plus</text>
+  <text x="96" y="344" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="46" font-weight="700">for WooCommerce</text>
+  <text x="96" y="398" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="500">Sell tickets through WooCommerce, manage attendees, deliver PDF tickets,</text>
+  <text x="96" y="432" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="500">and launch polished event pages with a premium WordPress workflow.</text>
+
+  <rect x="96" y="482" width="250" height="56" rx="28" fill="url(#accent)"/>
+  <text x="221" y="517" text-anchor="middle" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">Archive + Single Templates</text>
+
+  <rect x="362" y="482" width="230" height="56" rx="28" fill="#FFFFFF"/>
+  <rect x="362.5" y="482.5" width="229" height="55" rx="27.5" stroke="#D9E3F0"/>
+  <text x="477" y="517" text-anchor="middle" fill="#243246" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">PDF + QR Ticket Delivery</text>
+
+  <g>
+    <rect x="806" y="146" width="340" height="354" rx="28" fill="#FFFFFF" opacity="0.96"/>
+    <rect x="806.5" y="146.5" width="339" height="353" rx="27.5" stroke="#DDE6F1"/>
+
+    <text x="838" y="194" fill="#6B7A90" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="0.12em">TICKETING</text>
+    <text x="838" y="248" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="44" font-weight="800">Reserve your</text>
+    <text x="838" y="292" fill="#0B1324" font-family="Manrope, Inter, Arial, sans-serif" font-size="44" font-weight="800">spot</text>
+    <text x="838" y="334" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500">WooCommerce checkout, payment-state-aware</text>
+    <text x="838" y="362" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500">ticket issuing, PDF downloads, and check-in.</text>
+
+    <rect x="838" y="392" width="132" height="72" rx="20" fill="#F7FAFF"/>
+    <rect x="838.5" y="392.5" width="131" height="71" rx="19.5" stroke="#E2EAF4"/>
+    <text x="856" y="423" fill="#243246" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Secure</text>
+    <text x="856" y="447" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500">WooCommerce</text>
+
+    <rect x="986" y="392" width="128" height="72" rx="20" fill="#F5FFFB"/>
+    <rect x="986.5" y="392.5" width="127" height="71" rx="19.5" stroke="#DDEFEA"/>
+    <text x="1004" y="423" fill="#243246" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Attendees</text>
+    <text x="1004" y="447" fill="#607089" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500">Check-in ready</text>
+  </g>
+</svg>
